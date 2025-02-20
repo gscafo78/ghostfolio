@@ -1,0 +1,104 @@
+[
+    {
+        "symbol": "CBU2",
+        "profile_data": {
+            "assetClass": "EQUITY",
+            "assetSubClass": "ETF",
+            "comment": "",
+            "currency": "EUR",
+            "name": "iShares EUR Aggregate Bond ESG UCITS ETF",
+            "scraperConfiguration": {},
+            "symbolMapping": {}
+        },
+        "data_source": {
+            "name": "boerse_frankfurt",
+            "ticker": "XETR:IE000CR3ZDF9",
+            "start_date": "2024-08-01"
+        }
+    },
+    {
+        "symbol": "IT0005415291.MOT",
+        "profile_data": {
+            "assetClass": "EQUITY",
+            "assetSubClass": "BOND",
+            "comment": "",
+            "currency": "EUR",
+            "name": "Btp Futura Lg30",
+            "scraperConfiguration": {},
+            "symbolMapping": {}
+        },
+        "data_source": {
+            "name": "corriere",
+            "ticker": "IT0005415291.MOT",
+            "start_date": "2020-08-01"
+        }
+    },
+    {
+        "symbol": "IT0005517195.MOT",
+        "profile_data": {
+            "assetClass": "EQUITY",
+            "assetSubClass": "BOND",
+            "comment": "",
+            "currency": "EUR",
+            "name": "Btp Italia Nv28",
+            "scraperConfiguration": {},
+            "symbolMapping": {}
+        },
+        "data_source": {
+            "name": "corriere",
+            "ticker": "IT0005517195.MOT",
+            "start_date": "2022-11-01"
+        }
+    },
+    {
+        "symbol": "IT0005565400.MOT",
+        "profile_data": {
+            "assetClass": "EQUITY",
+            "assetSubClass": "BOND",
+            "comment": "",
+            "currency": "EUR",
+            "name": "Btp Valore Sc Oct28",
+            "scraperConfiguration": {},
+            "symbolMapping": {}
+        },
+        "data_source": {
+            "name": "corriere",
+            "ticker": "IT0005565400.MOT",
+            "start_date": "2023-10-01"
+        }
+    },
+    {
+        "symbol": "IT0005592370.MOT",
+        "profile_data": {
+            "assetClass": "EQUITY",
+            "assetSubClass": "BOND",
+            "comment": "",
+            "currency": "EUR",
+            "name": "Bot Zc Apr25 A",
+            "scraperConfiguration": {},
+            "symbolMapping": {}
+        },
+        "data_source": {
+            "name": "corriere",
+            "ticker": "IT0005592370.MOT",
+            "start_date": "2024-04-01"
+        }
+    },
+    {
+        "symbol": "IT0005595605.MOT",
+        "profile_data": {
+            "assetClass": "EQUITY",
+            "assetSubClass": "BOND",
+            "comment": "",
+            "currency": "EUR",
+            "name": "Bot Zc May25 A",
+            "scraperConfiguration": {},
+            "symbolMapping": {}
+        },
+        "data_source": {
+            "name": "corriere",
+            "ticker": "IT0005595605.MOT",
+            "start_date": "2024-05-01"
+        }
+    }
+]
