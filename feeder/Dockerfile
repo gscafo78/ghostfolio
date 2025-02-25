@@ -21,5 +21,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire source code into the image
 COPY app/ .
 
+VOLUME [ "/app/data" ]
 # Specify the command to run the application
 CMD ["python", "main.py"]

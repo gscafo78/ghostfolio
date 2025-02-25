@@ -1,30 +1,5 @@
 name: ghostfolio
 services:
-  nginx:
-    build: ./nginx-modsec
-    image: nginx-modsec:latest
-    container_name: gf-nginx
-    restart: unless-stopped
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./letsencrypt:/etc/letsencrypt
-      - ./modsec:/etc/nginx/modsec  # Directory per le configurazioni ModSecurity
-      # - ./modsec/crs:/etc/nginx/modsec/crs  # Regole CRS
-    environment:
-      - MODSEC_ENABLE=ON
-      - MODSEC_RULE_ENGINE=DetectionOnly  # Modalità iniziale di testing
-    depends_on:
-      - ghostfolio
-    # Healthcheck aggiuntivo per ModSecurity
-    healthcheck:
-      test: ["CMD-SHELL", "curl --fail http://localhost/modsecurity-status || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
   ghostfolio:
     image: docker.io/ghostfolio/ghostfolio:latest
     container_name: ghostfolio
@@ -36,6 +11,8 @@ services:
       - no-new-privileges:true
     env_file:
       - .env
+    # ports:
+    #   - 3333:3333
     depends_on:
       postgres:
         condition: service_healthy
@@ -46,6 +23,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - waf-nginx
 
   postgres:
     image: docker.io/library/postgres:15-alpine
@@ -71,6 +50,8 @@ services:
       retries: 5
     volumes:
       - postgres:/var/lib/postgresql/data
+    networks:
+      - waf-nginx
 
   redis:
     image: docker.io/library/redis:alpine
@@ -93,6 +74,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - waf-nginx
 
   ghostfolio-feeder:
     container_name: gf-feeder
@@ -102,21 +85,22 @@ services:
       - ./feeder/.env
     restart: unless-stopped
     volumes:
-      - .feeder.json:/app/data/profiles.json:ro
+      - ./feeder.json:/app/data/profiles.json:ro
     depends_on:
       ghostfolio:
         condition: service_healthy
-
-  certbot:
-    image: certbot/certbot
-    container_name: gf-certbot
-    volumes:
-      - ./letsencrypt:/etc/letsencrypt
-      - ./letsencrypt/lib:/var/lib/letsencrypt
-      - ./letsencrypt/log:/var/log/letsencrypt
-    entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
-    depends_on:
-      - nginx
+    healthcheck:
+      test: ["CMD", "test", "-f", "/app/data/profiles.json"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - waf-nginx
 
 volumes:
   postgres:
+
+networks:
+  waf-nginx:
+    external: true
