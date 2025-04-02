@@ -34,7 +34,11 @@ def get_market_data(data_source: dict) -> dict:
         dict: A dictionary containing the market data.
     """
     # Create an instance of the Market class with the specified ticker and start date
-    market_instance = Market(ticker=data_source['ticker'], start_date=data_source['start_date'])
+    apikey = data_source.get('apikey')  # None se 'apikey' non esiste
+    if apikey:  # Solo se apikey non è None, False, 0, o una stringa vuota
+        market_instance = Market(ticker=data_source['ticker'], start_date=data_source['start_date'], apikey=apikey)
+    else:
+        market_instance = Market(ticker=data_source['ticker'], start_date=data_source['start_date'])
 
     # Call the appropriate method from the data_source_mapping using the market_instance
     market_data = data_source_mapping[data_source['name']](market_instance)

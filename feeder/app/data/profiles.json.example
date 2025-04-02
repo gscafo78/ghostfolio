@@ -1,5 +1,23 @@
 [
     {
+        "symbol": "CBU2",
+        "profile_data": {
+            "assetClass": "EQUITY",
+            "assetSubClass": "ETF",
+            "comment": "",
+            "currency": "EUR",
+            "name": "iShares EUR Aggregate Bond ESG UCITS ETF",
+            "scraperConfiguration": {},
+            "symbolMapping": {}
+        },
+        "data_source": {
+            "name": "alphavantage",
+            "ticker": "CBU2.DEX",
+            "start_date": "2024-08-01",
+            "apikey": "XXXXXXXXXXXXXXXX"
+        }
+    },    
+    {
         "symbol": "21BC.DE",
         "profile_data": {
             "assetClass": "EQUITY",

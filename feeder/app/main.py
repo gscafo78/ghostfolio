@@ -21,7 +21,7 @@ def loop(host: str, access_token: str, crontab: str) -> None:
                     access_token,
                     data['symbol'],
                     data['profile_data'],
-                    data['data_source']
+                    data['data_source'],
                 )
             except Exception as e:
                 print(f"ERROR: {e}")

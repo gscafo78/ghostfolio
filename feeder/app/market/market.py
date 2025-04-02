@@ -1,6 +1,7 @@
 """Market module."""
 from .mvis import mvis
 from .corriere import corriere
+from .alphavantage import alphavantage
 from .byblos import byblos
 from .boerse_frankfurt import boerse_frankfurt
 from .fondofonte import fondofonte
@@ -19,15 +20,17 @@ class Market:
         ticker (str): The ticker symbol of the asset.
         start_date (str): The start date for fetching data (optional).
         end_date (str): The end date for fetching data (optional).
+        apikey (str): The API key for accessing certain data sources (optional).
     """
     def __init__(
-            self, ticker: str, start_date: str | None = None, end_date: str | None = None
+            self, ticker: str, start_date: str | None = None, end_date: str | None = None, apikey: str | None = None
         ) -> None:
         if ticker is None:
             raise ValueError("To create the object you have to insert a ticker")
         self.ticker = ticker
         self.start_date = start_date
         self.end_date = end_date
+        self.apikey = apikey
 
 
     def mvis(self) -> list:
@@ -41,6 +44,10 @@ class Market:
     def byblos(self) -> list:
         """Fetches market data from Byblos."""
         return byblos(self.ticker, self.start_date, self.end_date)
+
+    def alphavantage(self) -> list:
+        """Fetches market data from Aplhavantage."""
+        return alphavantage(self.ticker, self.start_date, self.end_date, self.apikey)
 
     def boerse_frankfurt(self) -> list:
         """Fetches market data from Börse Frankfurt."""
@@ -74,6 +81,7 @@ class Market:
 data_source_mapping = {
     "mvis": Market.mvis,
     "corriere": Market.corriere,
+    "alphavantage": Market.alphavantage,
     "byblos": Market.byblos,
     "boerse_frankfurt": Market.boerse_frankfurt,
     "fondofonte": Market.fondofonte,
