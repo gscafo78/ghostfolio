@@ -11,11 +11,9 @@ from .cometa import cometa
 from .cfs import cfs
 from .local import local
 
-
 class Market:
     """
     Represents the market and provides methods to fetch data from different sources.
-
     Attributes:
         ticker (str): The ticker symbol of the asset.
         start_date (str): The start date for fetching data (optional).
@@ -25,6 +23,16 @@ class Market:
     def __init__(
             self, ticker: str, start_date: str | None = None, end_date: str | None = None, apikey: str | None = None
         ) -> None:
+        """
+        Initializes a new Market instance.
+        Args:
+            ticker (str): The ticker symbol of the asset.
+            start_date (str | None): The start date for fetching data (optional). Defaults to None.
+            end_date (str | None): The end date for fetching data (optional). Defaults to None.
+            apikey (str | None): The API key for accessing certain data sources (optional). Defaults to None.
+        Raises:
+            ValueError: If ticker is None.
+        """
         if ticker is None:
             raise ValueError("To create the object you have to insert a ticker")
         self.ticker = ticker
@@ -32,52 +40,41 @@ class Market:
         self.end_date = end_date
         self.apikey = apikey
 
-
     def mvis(self) -> list:
         """Fetches market data from MVIS."""
         return mvis(self.ticker, self.start_date, self.end_date)
-
     def corriere(self) -> list:
         """Fetches market data from Corriere."""
         return corriere(self.ticker, self.start_date, self.end_date)
-
     def byblos(self) -> list:
         """Fetches market data from Byblos."""
         return byblos(self.ticker, self.start_date, self.end_date)
-
     def alphavantage(self) -> list:
-        """Fetches market data from Aplhavantage."""
+        """Fetches market data from Alphavantage."""
         return alphavantage(self.ticker, self.start_date, self.end_date, self.apikey)
-
     def boerse_frankfurt(self) -> list:
         """Fetches market data from Börse Frankfurt."""
         return boerse_frankfurt(self.ticker, self.start_date, self.end_date)
-
     def fondofonte(self) -> list:
         """Fetches market data from Fondofonte."""
         return fondofonte(self.ticker, self.start_date, self.end_date)
-
     def mediafond(self) -> list:
         """Fetches market data from MEDIAFOND."""
         return mediafond(self.ticker, self.start_date, self.end_date)
-
     def previcoop(self) -> list:
         """Fetches market data from Previdenza Cooperativa."""
         return previcoop(self.ticker, self.start_date, self.end_date)
-
     def cometa(self) -> list:
         """Fetches market data from Investing."""
         return cometa(self.ticker, self.start_date, self.end_date)
-
     def cfs(self) -> list:
         """Fetches market data from Colonial First State."""
         return cfs(self.ticker, self.start_date, self.end_date)
-
     def local(self) -> list:
         """Fetches market data from local source."""
         return local(self.ticker, self.start_date, self.end_date)
 
-
+# Mapping of data source names to their respective methods in the Market class
 data_source_mapping = {
     "mvis": Market.mvis,
     "corriere": Market.corriere,
